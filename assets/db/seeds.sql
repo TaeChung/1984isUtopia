@@ -11,7 +11,7 @@ VALUES ("CEO", 1500000, 2),
        ("Mint Treasurer", 300000, 3),
        ("Accountant", 115000, 1);
        
-INSERT INTO employee (first_name, last_name, roles_id)
+INSERT INTO employees (first_name, last_name, roles_id)
 VALUES ("David", "King", 2),
        ("Pedro", "Vasquez", 1),
        ("Bill", ":Bose", 3),
