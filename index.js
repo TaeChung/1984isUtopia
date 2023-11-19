@@ -29,20 +29,26 @@ inquirer.prompt ([
   },
 ]).then(answers=>{
   if(answers.selection=="view all departments"){
-    getallDepts()
-
+    getalldepts()
   }
   if(answers.selection=="view all roles"){
-    getallRoles()
+    getallroles()
   } 
   if(answers.selection=="view all employees"){
-    getALLSerfs()
+    getallserfs()
   }
   if(answers.selection=="add a department"){
-    addADEPARTMENT()
+    addadepartment()
   }
-
-
+  if(answers.selection=="add a role"){
+    addarole()
+  }
+  if(answers.selection=="add a serf"){
+    addaserf()
+  }
+  if(answers.selection=="change serfs role"){
+    changeserfrole()
+  }
 
 });
 
@@ -50,7 +56,7 @@ inquirer.prompt ([
 
 
 
-  function getallRoles() {
+  function getallroles() {
   const sql = "SELECT * FROM roles"
   
   
@@ -64,9 +70,9 @@ inquirer.prompt ([
   });
   };
 
-  function getallDepts() {
+  function getalldepts() {
   const sql = "SELECT * FROM department";
-  console.log ("hello")
+  console.log ()
   db.query(sql, (err, results) => {
     if (err) {
       console.log(err)
@@ -78,9 +84,9 @@ inquirer.prompt ([
 };
 // Delete a movie
 
-function getALLSerfs() {
+function getallserfs() {
   const sql = "SELECT * FROM employees";
-
+  console.log()
   
   db.query(sql, (err, results) => {
    console.log(err)
@@ -96,57 +102,95 @@ function getALLSerfs() {
   
 // Read list of all reviews and associated movie name using LEFT JOIN
 
-function addADEPARTMENT() {
+function addadepartment() {
 
-  inquirer.prompt ([
+  return inquirer.prompt ([
     {
       type:"input",
       message:"what is the new department's name",
-      name:"create a new department"
-    }
-  ]).then(answers=>
-      const sql = `INSERT INTO department
-  VALUES(?)`
+      name:"name"
+    },
+  ])
+  .then(answers=>{
+    console.log(answers.name)
+    const sql = 'INSERT INTO department (name) VALUES (?)';   
+    const deptname = answers.name;
 
-  );
-
-  
-
-  
-  db.query(sql, (err, results) => {
-   console.log(err)
-   if (err) {
-    console.log(results)
-    return;
-   }
-   console.table(results)
-   main_menu()
+    db.query(sql, deptname, (err) => {
+      if (err) {
+        console.log(err)
+      }
+      console.log('department added');
+      return getalldepts()
+    })
   });
 };
 
+function addarole() {
+  return inquirer.prompt ([
+    {
+      type:"input",
+      message:"new role's title",
+      name:"name"
+    },
+  ])
+    .then(answers=>{
+      console.log(answers.name)
+      const sql = 'INSERT INTO roles (name) VALUES (?)';
+      const rolename = answers.name;
 
+      db.query(sql, rolename, (err) => {
+        if (err) {
+          console.log(err)
+        }
+        console.log('roll added');
+        return getallroles()
+      })
+    });
+};
+  function addaserf() {
+    return inquirer.prompt ([
+      {
+        type:"input",
+        message:"new employee's name",
+        name:"name"
+      },
+    ])
+    .then(answers=>{
+      console.log(answers.name)
+      const sql = 'INSERT INTO employees (name) VALUES (?)';
+      const serfname = answers.name;
 
+      db.query(sql, serfname, (err) => {
+        if (err) {
+          console.log(err)
+        }
+        console.log('employee added');
+        return getallserfs()
+      })    
+    });
+  };
+  function changeserfrole() {
+    return inquirer.prompt ([
+      {
+        type:"editor",
+        message:"employee's new role",
+        name:"name"
+      },
+    ])
+    .then(answers=>{
+      console.log(answers.name)
+      const sql = 'EDIT INTO roles (name) VALUES (?)';
+      const serfrole = answers.name;
 
-// BONUS: Update review name
-  const sql = `UPDATE reviews SET review = ? WHERE id = ?`;
-  // const params = [req.body.review, req.params.id];
+      db.query(sql, serfrole, (err) => {
+        if (err) {
+          console.log(err)
+        }
+        console.log('employee role changed')
+        return getallroles()
+      })
+    });  
+  };
 
-  db.query(sql, (err, result) => {
-    if (err) {
-      // res.status(400).json({ error: err.message });
-    } else if (!result.affectedRows) {
-    //   res.json({
-    //     message: 'Movie not found'
-    //   });
-    // } else {
-    //   res.json({
-    //     message: 'success',
-    //     data: req.body,
-    //     changes: result.affectedRows
-      // });
-    }});
-  //   }
-  // });
-
-
-main_menu() 
+main_menu()
