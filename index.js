@@ -58,8 +58,6 @@ inquirer.prompt ([
 
   function getallroles() {
   const sql = "SELECT * FROM roles"
-  
-  
   db.query(sql, (err, results) => {
     if (err) {
      console.log(err)
@@ -82,7 +80,6 @@ inquirer.prompt ([
     main_menu()
     });
 };
-// Delete a movie
 
 function getallserfs() {
   const sql = "SELECT * FROM employees";
@@ -127,6 +124,41 @@ function addadepartment() {
 };
 
 function addarole() {
+  const sql ="SELECT department.id, department.name FROM department";
+      console.log (answers.name)
+      db.query(sql, (err, results) => {
+        if (err) {
+          console.log(err)
+          return;
+        }
+         const depChoices = departments.map(({ id, first_name, last_name })) => ({
+          name: first_name, last_name,
+          value: id
+        });
+
+          let sql = "SELECT * FROM roles"
+          db.query(sql, (err, results) => {
+          if (err) {
+           console.log(err)
+            return;
+          } 
+          console.table(results)
+          main_menu()
+        });
+
+
+        const sql = "SELECT * FROM department";
+        console.log ()
+        db.query(sql, (err, results) => {
+          if (err) {
+            console.log(err)
+             return;
+          }
+
+        console.table(results)
+        main_menu()
+      });
+    })
   return inquirer.prompt ([
     {
       type:"input",
@@ -134,9 +166,11 @@ function addarole() {
       name:"name"
     },
   ])
+    // .then(answers=>{
+ 
     .then(answers=>{
       console.log(answers.name)
-      const sql = 'INSERT INTO roles (name) VALUES (?)';
+      const sql = 'INSERT INTO roles (title) VALUES (?)';
       const rolename = answers.name;
 
       db.query(sql, rolename, (err) => {
