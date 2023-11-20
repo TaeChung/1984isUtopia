@@ -132,13 +132,25 @@ function addarole() {
       message:"new role's title",
       name:"name"
     },
+    {
+      type:"input",
+      message:"new role's salary",
+      name:"salary"
+    },
+    {
+      type:"input",
+      message:"new role's department id",
+      name:"id"
+    },
   ])
     .then(answers=>{
       console.log(answers.name)
       const sql = 'INSERT INTO roles (title) VALUES (?)';
+      const sql1 = 'INSERT INTO roles (salary) VALUES (?)';
+      const sql2 = 'INSERT INTO roles (department_id) VALUES (?)';
       const rolename = answers.name;
 
-      db.query(sql, rolename, (err) => {
+      db.query(sql, sql1, sql2, rolename, (err) => {
         if (err) {
           console.log(err)
         }
