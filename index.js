@@ -46,7 +46,7 @@ inquirer.prompt ([
   if(answers.selection=="add an employee"){
     addaserf()
   }
-  if(answers.selection=="change serfs role"){
+  if(answers.selection=="update employee role"){
     changeserfrole()
   }
 
@@ -161,25 +161,30 @@ function addarole() {
     return inquirer.prompt ([
       {
         type:"input",
-        message:"new employee's name",
-        name:"name"
+        message:"new employee's first name",
+        name:"first_name"
       },
       {
         type:"input",
-        message:"new employee's salary",
-        name:"salary"
+        message:"new employee's last name",
+        name:"last_name"
+      },
+      {
+        type:"input",
+        message:"new employee's manager",
+        name:"manager_id"
       },
       {
         type:"input",
         message:"new employee's role",
-        name:"role"
+        name:"roles_id"
       },
     ])
     .then(answers=>{
-      console.log(answers.name)
-      const sql = 'INSERT INTO employees (name, salary, role) VALUES (?,?,?)';
+      console.log(answers)
+      const sql = 'INSERT INTO employees (first_name, last_name, manager_id, roles_id) VALUES (?,?,?,?)';
 
-      db.query(sql, [answers.name, answers.salary,answers.roles], (err) => {
+      db.query(sql, [answers.first_name,answers.last_name,answers.manager_id,answers.roles_id], (err) => {
         if (err) {
           console.log(err)
         }
@@ -191,10 +196,16 @@ function addarole() {
   function changeserfrole() {
     return inquirer.prompt ([
       {
-        type:"editor",
-        message:"employee's new role",
-        name:"name"
+        type:"input",
+        message:"select employee",
+        name:"employees"
       },
+      {
+        type:"input",
+        message:"update employee role",
+        name:"roles_id"
+      },
+      
     ])
     .then(answers=>{
       console.log(answers.name)
