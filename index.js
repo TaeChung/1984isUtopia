@@ -209,7 +209,7 @@ function addarole() {
     ])
     .then(answers=>{
       console.log(answers.name)
-      const sql = 'EDIT INTO roles (name) VALUES (?)';
+      const sql = 'EDIT INTO roles (employees, roles_id) VALUES (?,?)';
       const serfrole = answers.name;
 
       db.query(sql, serfrole, (err) => {
