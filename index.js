@@ -43,7 +43,7 @@ inquirer.prompt ([
   if(answers.selection=="add a role"){
     addarole()
   }
-  if(answers.selection=="add a serf"){
+  if(answers.selection=="add an employee"){
     addaserf()
   }
   if(answers.selection=="change serfs role"){
@@ -145,12 +145,10 @@ function addarole() {
   ])
     .then(answers=>{
       console.log(answers.name)
-      const sql = 'INSERT INTO roles (title) VALUES (?)';
-      const sql1 = 'INSERT INTO roles (salary) VALUES (?)';
-      const sql2 = 'INSERT INTO roles (department_id) VALUES (?)';
-      const rolename = answers.name;
+      const sql = 'INSERT INTO roles (title, salary, department_id) VALUES (?,?,?)';
+      // const rolename = answers.name;
 
-      db.query(sql, sql1, sql2, rolename, (err) => {
+      db.query(sql, [answers.name,answers.salary,answers.id], (err) => {
         if (err) {
           console.log(err)
         }
@@ -166,13 +164,22 @@ function addarole() {
         message:"new employee's name",
         name:"name"
       },
+      {
+        type:"input",
+        message:"new employee's salary",
+        name:"salary"
+      },
+      {
+        type:"input",
+        message:"new employee's role",
+        name:"role"
+      },
     ])
     .then(answers=>{
       console.log(answers.name)
-      const sql = 'INSERT INTO employees (name) VALUES (?)';
-      const serfname = answers.name;
+      const sql = 'INSERT INTO employees (name, salary, role) VALUES (?,?,?)';
 
-      db.query(sql, serfname, (err) => {
+      db.query(sql, [answers.name, answers.salary,answers.roles], (err) => {
         if (err) {
           console.log(err)
         }
