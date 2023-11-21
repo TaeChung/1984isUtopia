@@ -53,9 +53,6 @@ inquirer.prompt ([
 });
 
 }
-
-
-
   function getallroles() {
   const sql = "SELECT * FROM roles"
   
@@ -220,5 +217,5 @@ function addarole() {
       })
     });  
   };
-
+  
 main_menu()
