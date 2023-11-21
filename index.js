@@ -194,7 +194,7 @@ function addarole() {
     return inquirer.prompt ([
       {
         type:"input",
-        message:"select employee",
+        message:"enter the employee's id",
         name:"employees"
       },
       {
@@ -205,10 +205,10 @@ function addarole() {
       
     ])
     .then(answers=>{
-      console.log(answers.name)
-      const sql = `UPDATE INTO employees = "roles_id" SET_NAME = "employees" WHERE = employees VALUES (?,?)`;
+      console.log(answers)
+      const sql = `UPDATE employees SET roles_id = (?) WHERE id = (?)`;
 
-      db.query(sql, [answers.employees, answers.roles_id], (err) => {
+      db.query(sql, [answers.roles_id, answers.employees], (err) => {
         if (err) {
           console.log(err)
         }
@@ -217,5 +217,5 @@ function addarole() {
       })
     });  
   };
-  
+//message:"Enter the employ"
 main_menu()
