@@ -15,7 +15,7 @@
 ### How to use 
 
     Here is a walkthrough video that provides information on how to use this employee tracker.
-    [![walkthrough video](https://drive.google.com/file/d/1d3U47CFxvUV6gz9a_i4I1oobfib9LzO1/view)]
+    ![walkthrough video](https://drive.google.com/file/d/1d3U47CFxvUV6gz9a_i4I1oobfib9LzO1/view)
 
 
 
