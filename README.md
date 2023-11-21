@@ -3,7 +3,7 @@
     1984isUtopia is an innovative content management system. It uses the command line to 
     acess and modify the comapny's employee database.
 
-## Credits
+# Credits
 
     This software uses Node.js, Inquirer, and MySQL.
 
@@ -12,7 +12,7 @@
     AskBCS Learning Assistance
     Starter code from Module 12 Mini-project.
 
-### How to use 
+# How to use 
 
     Here is a walkthrough video that provides information on how to use this employee tracker.
     
