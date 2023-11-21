@@ -209,10 +209,9 @@ function addarole() {
     ])
     .then(answers=>{
       console.log(answers.name)
-      const sql = 'UPDATE INTO employees (employees, SET roles_id) VALUES (?,?)';
-      const serfrole = answers.name;
+      const sql = `UPDATE INTO employees = "roles_id" SET_NAME = "employees" WHERE = employees VALUES (?,?)`;
 
-      db.query(sql, serfrole, (err) => {
+      db.query(sql, [answers.employees, answers.roles_id], (err) => {
         if (err) {
           console.log(err)
         }
